@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+type H map[string]interface{}
+
 // Context 存储一次请求的上下文信息
 type Context struct {
 	Writer     http.ResponseWriter
@@ -63,7 +65,7 @@ func (c *Context) SetHeader(key string, value string) {
 func (c *Context) String(code int, format string, values ...interface{}) {
 	c.Status(code)
 	c.SetHeader("Content-Type", "text/plain")
-	c.Writer.Write([]byte(fmt.Sprintf(format, values)))
+	c.Writer.Write([]byte(fmt.Sprintf(format, values...)))
 }
 
 /**

@@ -5,6 +5,8 @@ import (
 )
 
 // Gee框架入口：ServeHTTP方法
+type HandlerFunc func(*Context)
+
 // Engine implement the interface of ServeHTTP
 type Engine struct {
 	router *router
