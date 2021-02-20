@@ -83,7 +83,7 @@ func (router *router) handle(c *Context) {
 	n, params := router.getRoute(c.Method, c.Path)
 	if n != nil {
 		c.Params = params
-		key := c.Method + "-" + c.Path
+		key := c.Method + "-" + n.pattern
 		// 执行路由处理函数
 		router.handlers[key](c)
 	} else {

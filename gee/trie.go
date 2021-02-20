@@ -44,7 +44,8 @@ func (n *node) insert(pattern string, parts []string, height int) {
 	}
 	child := n.matchChild(parts[height])
 	if child == nil {
-		child = &node{pattern: "", part: parts[height], isWild: parts[height][0] == ':' || parts[height][0] == '*'}
+		child = &node{part: parts[height], isWild: parts[height][0] == ':' || parts[height][0] == '*'}
+		n.children = append(n.children, child)
 	}
 	child.insert(pattern, parts, height+1)
 }
@@ -52,6 +53,9 @@ func (n *node) insert(pattern string, parts []string, height int) {
 // 根据路由匹配结果 前缀树的查找
 func (n *node) search(parts []string, height int) *node {
 	if len(parts) == height || strings.HasPrefix(n.part, "*") {
+		if n.pattern == "" {
+			return nil
+		}
 		return n
 	}
 
