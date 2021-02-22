@@ -38,6 +38,7 @@ func (n *node) matchChildren(part string) []*node {
 // 根据路由构建前缀树节点 前缀树的插入
 func (n *node) insert(pattern string, parts []string, height int) {
 	// 递归终止条件
+	// 同一层只会取最后一个模糊匹配节点，即覆盖该层先前注册的所有模糊匹配节点
 	if len(parts) == height {
 		n.pattern = pattern
 		return
